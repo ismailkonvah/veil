@@ -18,7 +18,58 @@ In this demo:
 - Computed under FHE: an encrypted risk flag that checks whether the intent is large or has high
   slippage without revealing the underlying values.
 
-## Project Structure
+## Architecture
+
+```txt
+User
+ │
+ │  natural-language command
+ ▼
+Frontend / Veil Console
+ │
+ ├─ RainbowKit wallet connection
+ ├─ AI command router result
+ ├─ Portfolio, intent, and confidential token UI
+ │
+ │  command text
+ ▼
+Mistral AI Router
+ │
+ ├─ Classifies the request
+ ├─ Returns a structured action
+ └─ Falls back to the local parser if needed
+ │
+ │  amount, slippage, MEV preference
+ ▼
+Zama Relayer SDK
+ │
+ ├─ Encrypts sensitive inputs
+ ├─ Creates FHE handles
+ └─ Returns input proof
+ │
+ │  encrypted calldata
+ ▼
+Sepolia Smart Contracts
+ │
+ ├─ VeilIntentVault
+ │    ├─ Stores encrypted intent fields
+ │    ├─ Computes encrypted risk signal
+ │    └─ Emits privacy receipt data
+ │
+ └─ VeilConfidentialUSDC
+      ├─ Shields public USDC into vcUSDC
+      ├─ Supports encrypted vcUSDC transfers
+      ├─ Reveals balance only to wallet owner
+      └─ Unshields vcUSDC back to public USDC
+ │
+ ▼
+Sepolia / Etherscan
+ ├─ Public transaction hash
+ ├─ Public metadata
+ └─ Encrypted FHE handles
+```
+
+## Code Layout
 
 ```txt
 contracts/VeilIntentVault.sol      Zama FHEVM intent smart contract
