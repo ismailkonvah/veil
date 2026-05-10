@@ -242,16 +242,6 @@ Wallet connection uses RainbowKit. Set `VITE_WALLETCONNECT_PROJECT_ID` from Wall
 full WalletConnect QR/mobile wallet support. Browser-injected wallets can still be used for local
 demo testing.
 
-## Submission Checklist
-
-- Functioning dApp demo using Zama Protocol: contracts + Relayer SDK integration.
-- Real-world FHE use case: private DeFi intent parameters, encrypted risk checks, and confidential token transfers.
-- Smart contract implementation: `contracts/VeilIntentVault.sol` and `contracts/VeilConfidentialUSDC.sol`.
-- Frontend implementation: `/console` uses `src/lib/veil-contract.ts` and `src/lib/confidential-usdc.ts`.
-- Documentation: this README plus `docs/VIDEO_PITCH.md`.
-- Deployment target: Sepolia testnet.
-- Video: record a real-person 3-minute pitch. AI-generated voice/video should not be used.
-
 ## References
 
 - Zama Solidity quick start: https://docs.zama.org/protocol/solidity-guides/getting-started/quick-start-tutorial
