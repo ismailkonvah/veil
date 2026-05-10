@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as ConsoleRouteImport } from './routes/console'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ApiAiIntentRouteImport } from './routes/api/ai-intent'
 
 const DashboardRoute = DashboardRouteImport.update({
   id: '/dashboard',
@@ -28,35 +29,44 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiAiIntentRoute = ApiAiIntentRouteImport.update({
+  id: '/api/ai-intent',
+  path: '/api/ai-intent',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/console': typeof ConsoleRoute
   '/dashboard': typeof DashboardRoute
+  '/api/ai-intent': typeof ApiAiIntentRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/console': typeof ConsoleRoute
   '/dashboard': typeof DashboardRoute
+  '/api/ai-intent': typeof ApiAiIntentRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/console': typeof ConsoleRoute
   '/dashboard': typeof DashboardRoute
+  '/api/ai-intent': typeof ApiAiIntentRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/console' | '/dashboard'
+  fullPaths: '/' | '/console' | '/dashboard' | '/api/ai-intent'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/console' | '/dashboard'
-  id: '__root__' | '/' | '/console' | '/dashboard'
+  to: '/' | '/console' | '/dashboard' | '/api/ai-intent'
+  id: '__root__' | '/' | '/console' | '/dashboard' | '/api/ai-intent'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ConsoleRoute: typeof ConsoleRoute
   DashboardRoute: typeof DashboardRoute
+  ApiAiIntentRoute: typeof ApiAiIntentRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -82,6 +92,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/ai-intent': {
+      id: '/api/ai-intent'
+      path: '/api/ai-intent'
+      fullPath: '/api/ai-intent'
+      preLoaderRoute: typeof ApiAiIntentRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -89,6 +106,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ConsoleRoute: ConsoleRoute,
   DashboardRoute: DashboardRoute,
+  ApiAiIntentRoute: ApiAiIntentRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
